@@ -2,7 +2,7 @@ require 'formula'
 
 class Bitcoind < Formula
   homepage 'http://bitcoin.org/'
-  head 'https://github.com/bitcoin/bitcoin/zipball/master'
+  head 'https://github.com/bitcoin/bitcoin/tarball/master'
   url 'https://github.com/bitcoin/bitcoin/tarball/0.6.3'
   sha1 '334f06876b126b12a1b4fa1c8b00b5d8a89da284'
   version '0.6.3'
