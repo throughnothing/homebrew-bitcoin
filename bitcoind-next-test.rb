@@ -10,6 +10,7 @@ class BitcoindNextTest < Formula
   def install
     cd "src" do
         system "make -f makefile.osx USE_UPNP= DEPSDIR=#{HOMEBREW_PREFIX}"
+        system "mv bitcoind bitcoind-next-test"
         bin.install "bitcoind-next-test"
     end
   end
