@@ -14,7 +14,7 @@ class Bitcoinarmory < Formula
     ENV.j1  # if your formula's build system can't parallelize
 
     system "make"
-    system "make DESTDIR=`brew --prefix BitcoinArmory` install"
+    system "make DESTDIR=#{prefix} install"
     bin.install 'ArmoryQt.command'
   end
 
@@ -27,7 +27,7 @@ class Bitcoinarmory < Formula
         #{bin}
 
     To symlink into ~/Applications, you can do:
-        ln -s #{bin}/ArmoryQt.command ~/Applications/
+        ln -s #{bin}/ArmoryQt.command ~/Applications
     EOS
   end
 end
