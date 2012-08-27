@@ -1,6 +1,6 @@
 require 'formula'
 
-class Bitcoinarmory < Formula
+class ArmoryQt < Formula
   homepage 'http://bitcoinarmory.com/'
   head 'https://github.com/WyseNynja/BitcoinArmory/tarball/dev'
   depends_on 'cryptopp'
