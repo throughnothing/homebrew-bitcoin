@@ -2,10 +2,10 @@ require 'formula'
 
 class Bitcoind < Formula
   homepage 'http://bitcoin.org/'
-  head 'https://github.com/bitcoin/bitcoin/tarball/master'
-  url 'https://github.com/bitcoin/bitcoin/tarball/0.6.3'
-  sha1 '334f06876b126b12a1b4fa1c8b00b5d8a89da284'
-  version '0.6.3'
+  head 'https://github.com/bitcoin/bitcoin/archive/master.tar.gz'
+  url 'https://github.com/bitcoin/bitcoin/archive/v0.7.1.tar.gz'
+  sha1 'df22ba6d4a1f6afa01c21f28316a2cb498290255'
+  version '0.7.1'
   depends_on 'boost'
   depends_on 'berkeley-db4'
 
