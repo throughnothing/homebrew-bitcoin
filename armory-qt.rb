@@ -5,6 +5,7 @@ class ArmoryQt < Formula
   head 'https://github.com/etotheipi/BitcoinArmory/archive/master.tar.gz'
   url 'https://github.com/etotheipi/BitcoinArmory/archive/v0.85-beta.tar.gz'
   sha1 '26354bdb5096ea4a9aeccbf1c80e103fb89c72a1'
+  version 'v0.85-beta'
 
   depends_on 'cryptopp'
   depends_on 'swig'
