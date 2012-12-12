@@ -3,12 +3,12 @@ require 'formula'
 class ArmoryQt < Formula
   homepage 'http://bitcoinarmory.com/'
   head 'https://github.com/etotheipi/BitcoinArmory/archive/master.tar.gz'
-  url 'https://github.com/etotheipi/BitcoinArmory/archive/v0.85-beta.tar.gz'
-  sha1 '26354bdb5096ea4a9aeccbf1c80e103fb89c72a1'
-  version 'v0.85-beta'
+  url 'https://github.com/etotheipi/BitcoinArmory/archive/v0.86-beta.tar.gz'
+  sha1 '9879f8c0afb964585e7776cd686dcdaaf6adfb83'
+  version 'v0.86-beta'
 
   depends_on 'cryptopp'
-  depends_on 'swig'
+  depends_on 'swig' => :build
   depends_on 'sip'
   depends_on 'qt'
   depends_on 'pyqt'
@@ -23,9 +23,8 @@ class ArmoryQt < Formula
 
     # my makefile patches weren't working
     system "make"
-    system "mkdir -p #{prefix}/share/armory/img"
-    system "cp *.py *.so README LICENSE #{prefix}/share/armory/"
-    system "cp img/* #{prefix}/share/armory/img"
+    system "mkdir -p #{share}/armory/img"
+    system "cp *.py *.so README LICENSE #{share}/armory/"
     bin.install 'ArmoryQt.command'
   end
 
