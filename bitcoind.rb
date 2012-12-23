@@ -12,10 +12,14 @@ class Bitcoind < Formula
   depends_on 'miniupnpc' if build.include? 'with-upnp'
 
   option 'with-upnp', 'Compile with UPnP support'
+  option 'without-ipv6', 'Compile without IPv6 support'
 
   def install
     cd "src" do
-        system "make -f makefile.osx #{"USE_UPNP=" unless build.include? 'with-upnp'} DEPSDIR=#{HOMEBREW_PREFIX}"
+        system "make", "-f", "makefile.osx",
+                       "DEPSDIR=#{HOMEBREW_PREFIX}",
+                       "USE_UPNP=#{(build.include? 'with-upnp') ? '1' : '-'}",
+                       "USE_IPV6=#{(build.include? 'without-ipv6') ? '-' : '1'}"
         system "strip bitcoind"
         bin.install "bitcoind"
     end
