@@ -6,10 +6,13 @@ class BitcoindNextTest < Formula
   version 'next-test'
   depends_on 'boost'
   depends_on 'berkeley-db4'
+  depends_on 'miniupnpc' if build.include? 'with-upnp'
+  
+  option 'with-upnp', 'Compile with UPnP support'
 
   def install
     cd "src" do
-        system "make -f makefile.osx USE_UPNP= DEPSDIR=#{HOMEBREW_PREFIX}"
+        system "make -f makefile.osx #{"USE_UPNP=" unless build.include? 'with-upnp'} DEPSDIR=#{HOMEBREW_PREFIX}"
         system "mv bitcoind bitcoind-next-test"
         bin.install "bitcoind-next-test"
     end
@@ -17,8 +20,8 @@ class BitcoindNextTest < Formula
 
   def caveats; <<-EOS.undent
     You will need to setup your bitcoin.conf:
-        echo "rpcuser=user" >> ~/Library/Application Support/Bitcoin/bitcoin.conf
-        echo "rpcpassword=password" >> ~/Library/Application Support/Bitcoin/bitcoin.conf
+        echo "rpcuser=user" >> "~/Library/Application Support/Bitcoin/bitcoin.conf"
+        echo "rpcpassword=password" >> "~/Library/Application Support/Bitcoin/bitcoin.conf"
     EOS
   end
 end
