@@ -2,10 +2,9 @@ require 'formula'
 
 class ArmoryQt < Formula
   homepage 'http://bitcoinarmory.com/'
-  head 'https://github.com/etotheipi/BitcoinArmory/archive/master.tar.gz'
-  url 'https://github.com/etotheipi/BitcoinArmory/archive/v0.86-beta.tar.gz'
-  sha1 '9879f8c0afb964585e7776cd686dcdaaf6adfb83'
-  version 'v0.86-beta'
+  head 'https://github.com/etotheipi/BitcoinArmory.git'
+  url 'https://github.com/etotheipi/BitcoinArmory.git', :tag => 'v0.86.3-beta'
+  version '0.86.3-beta'
 
   depends_on 'cryptopp'
   depends_on 'swig' => :build
@@ -20,22 +19,22 @@ class ArmoryQt < Formula
 
   def install
     ENV.j1  # if your formula's build system can't parallelize
-
-    # my makefile patches weren't working
     system "make"
-    system "mkdir -p #{share}/armory/img"
+    system "mkdir -p #{share}/armory/"
     system "cp *.py *.so README LICENSE #{share}/armory/"
     bin.install 'ArmoryQt.command'
   end
 
   def caveats; <<-EOS.undent
     ArmoryQt.command was installed in
-        #{bin}
+      #{bin}
 
     To symlink into ~/Applications, you can do:
-        ln -s #{bin}/ArmoryQt.command ~/Applications/ArmoryQt
+      ln -s #{bin}/ArmoryQt.command ~/Applications/ArmoryQt
 
     Or you can just run 'ArmoryQt.command' from your terminal
+
+    You will need bitcoin-qt or bitcoind running if you want to go online.
     EOS
   end
 end
