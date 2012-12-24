@@ -5,6 +5,8 @@ class ArmoryQt < Formula
   head 'https://github.com/etotheipi/BitcoinArmory.git'
   url 'https://github.com/etotheipi/BitcoinArmory.git', :tag => 'v0.86.3-beta'
   version '0.86.3-beta'
+ 
+  option 'skip-verify', "Skip git-verify-tag"
 
   depends_on 'cryptopp'
   depends_on 'swig' => :build
@@ -18,6 +20,13 @@ class ArmoryQt < Formula
   end
 
   def install
+    if not build.include? 'skip-verify'
+      cd "#{cached_download}" do
+        # prefix version with a "v" to match tags
+        system "git verify-tag v#{version}"
+      end
+    end
+
     ENV.j1  # if your formula's build system can't parallelize
     system "make"
     system "mkdir -p #{share}/armory/"
