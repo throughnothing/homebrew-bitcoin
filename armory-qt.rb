@@ -5,6 +5,11 @@ class ArmoryQt < Formula
   head 'https://github.com/etotheipi/BitcoinArmory.git'
   url 'https://github.com/etotheipi/BitcoinArmory.git', :tag => 'v0.86.3-beta'
   version '0.86.3-beta'
+
+  devel do
+    url 'https://github.com/etotheipi/BitcoinArmory.git', :branch => 'testing'
+    version 'testing'
+  end
  
   option 'skip-verify', "Skip git-verify-tag"
 
@@ -20,7 +25,7 @@ class ArmoryQt < Formula
   end
 
   def install
-    if not build.include? 'skip-verify'
+    if not build.devel? and not build.head? and not build.include? 'skip-verify'
       cd "#{cached_download}" do
         # prefix version with a "v" to match tags
         system "git verify-tag v#{version}"
