@@ -61,5 +61,5 @@ index 0000000..2cc2154
 +++ b/ArmoryQt.command
 @@ -0,0 +1,3 @@
 +#!/bin/sh
-+PYTHONPATH=`brew --prefix`/lib/python2.7/site-packages /usr/bin/python `brew --prefix`/share/armory/ArmoryQt.py
++PYTHONPATH=`brew --prefix`/lib/python2.7/site-packages /usr/bin/python `brew --prefix`/share/armory/ArmoryQt.py $@
 +
