@@ -19,7 +19,7 @@ class ArmoryQt < Formula
   depends_on 'qt'
   depends_on 'pyqt'
   depends_on 'twisted' => :python
-  #depends_on 'gpg'
+  depends_on 'gpg'
 
   def patches
     DATA
@@ -29,8 +29,7 @@ class ArmoryQt < Formula
     if not build.devel? and not build.head? and not build.include? 'skip-verify'
       cd "#{cached_download}" do
         # prefix version with a "v" to match tags
-        # there has to be a better way to ensure gpg is on the path without making it a dependency
-        system "PATH=$PATH:/usr/local/bin git verify-tag v#{version}"
+        system "git verify-tag v#{version}"
       end
     end
 
