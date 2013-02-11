@@ -3,30 +3,28 @@ require 'formula'
 class ArmoryQt < Formula
   homepage 'http://bitcoinarmory.com/'
   head 'https://github.com/etotheipi/BitcoinArmory.git'
-  url 'https://github.com/etotheipi/BitcoinArmory.git', :tag => 'v0.86.3-beta'
-  version '0.86.3-beta'
+  url 'https://github.com/etotheipi/BitcoinArmory.git', :tag => 'v0.87-beta'
+  version '0.87-beta'
 
   devel do
     url 'https://github.com/etotheipi/BitcoinArmory.git', :branch => 'testing'
     version 'testing'
   end
  
-  option 'skip-verify', "Skip git-verify-tag"
-
   depends_on 'cryptopp'
   depends_on 'swig' => :build
   depends_on 'sip'
   depends_on 'qt'
   depends_on 'pyqt'
   depends_on 'twisted' => :python
-  depends_on 'gpg'
+  depends_on 'gpg' => :recommended
 
   def patches
     DATA
   end
 
   def install
-    if not build.devel? and not build.head? and not build.include? 'skip-verify'
+    if not build.devel? and not build.head? and not build.include? 'without-gpg'
       cd "#{cached_download}" do
         # prefix version with a "v" to match tags
         system "git verify-tag v#{version}"
