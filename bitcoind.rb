@@ -3,12 +3,12 @@ require 'formula'
 class Bitcoind < Formula
   homepage 'http://bitcoin.org/'
   head 'https://github.com/bitcoin/bitcoin.git'
-  url 'https://github.com/bitcoin/bitcoin.git', :tag => 'v0.7.2'
-  version '0.7.2'
+  url 'https://github.com/bitcoin/bitcoin.git', :tag => 'v0.8.0'
+  version '0.8.0'
 
   devel do
-    url 'https://github.com/bitcoin/bitcoin.git', :tag => 'v0.8.0rc1'
-    version 'v0.8.0rc1'
+    url 'https://github.com/bitcoin/bitcoin.git', :branch => 'master'
+    version 'master'
   end
 
   depends_on 'boost'
