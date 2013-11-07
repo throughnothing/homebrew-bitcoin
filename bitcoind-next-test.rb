@@ -7,7 +7,7 @@ class BitcoindNextTest < Formula
   depends_on 'boost'
   depends_on 'berkeley-db4'
   depends_on 'miniupnpc' if build.include? 'with-upnp'
-  
+
   option 'with-upnp', 'Compile with UPnP support'
   option 'without-ipv6', 'Compile without IPv6 support'
 

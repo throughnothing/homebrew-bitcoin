@@ -10,7 +10,7 @@ class ArmoryQt < Formula
     url 'https://github.com/etotheipi/BitcoinArmory.git', :branch => 'testing'
     version 'testing'
   end
- 
+
   depends_on 'cryptopp'
   depends_on 'swig' => :build
   depends_on 'sip'
