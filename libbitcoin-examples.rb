@@ -6,6 +6,7 @@ class LibbitcoinExamples < Formula
 
   depends_on 'WyseNynja/bitcoin/boost-gcc48'
   depends_on 'WyseNynja/bitcoin/libbitcoin'
+  depends_on 'watch'
 
   def patches
     # lboost_thread is named differently on osx
@@ -22,7 +23,20 @@ class LibbitcoinExamples < Formula
     cd "examples" do
       system "make"
 
-      for script in ["balance", "priv", "determ", "initchain", "fullnode", "display-last", "satoshiwords", "connect", "accept", "proto", "txrad"] do
+      for script in [
+        "accept",
+        "balance",
+        "blocks.sh",
+        "connect",
+        "determ",
+        "display-last",
+        "fullnode",
+        "initchain",
+        "priv",
+        "proto",
+        "satoshiwords",
+        "txrad",
+      ] do
         system "mv", script, "bitcoin-"+script
         bin.install "bitcoin-"+script
       end
