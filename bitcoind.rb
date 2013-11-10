@@ -25,6 +25,9 @@ class Bitcoind < Formula
   end
 
   def install
+    ENV['CPPFLAGS'] = "-I/usr/local/opt/openssl/include"
+    ENV['LDFLAGS'] = "-L/usr/local/opt/openssl/lib"
+
     cd "src" do
       system "make", "-f", "makefile.osx",
         "DEPSDIR=#{HOMEBREW_PREFIX}",

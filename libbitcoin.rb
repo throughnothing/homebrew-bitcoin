@@ -5,25 +5,26 @@ class Libbitcoin < Formula
   url 'https://github.com/spesmilo/libbitcoin.git', :tag => 'v1.4'
 
   depends_on 'automake' => :build
-  depends_on 'berkeley-db' => :optional
+  depends_on 'curl'
   depends_on 'homebrew/versions/gcc48' => :build
   depends_on 'openssl'
-  depends_on 'protobuf' if build.include? 'with-berkeley-db'
   depends_on 'WyseNynja/bitcoin/boost-gcc48'
-  depends_on 'WyseNynja/bitcoin/leveldb-gcc48' => :recommended
+  depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
+
+  def patches
+    # lboost_thread is named differently on osx
+    DATA
+  end
 
   def install
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = "g++-4.8"
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/openssl/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/openssl/lib"
+    ENV['LD'] = ENV['CXX']
+    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/curl/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/openssl/include"
+    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/curl/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/openssl/lib"
 
-    # todo: is this the proper way to enable flags based on with-berkeley-db and with-leveldb
     system "autoreconf", "-i"
-    # todo: the CC, CXX, and PKG_CONFIG_PATH stuff seem like they could be done better
-    system "./configure", "#{(build.include? 'with-berkeley-db') ? "--enable-bdb" : ""}",
-                          "#{(build.include? 'without-leveldb-gcc48') ? "" : "--enable-leveldb"}",
+    system "./configure", "--enable-leveldb",
                           "--prefix=#{prefix}"
     system "make"
     system "make", "install"
@@ -36,3 +37,16 @@ class Libbitcoin < Formula
     system "false"
   end
 end
+__END__
+diff --git a/libbitcoin.pc.in b/libbitcoin.pc.in
+index 81880f3..aa6d18e 100644
+--- a/libbitcoin.pc.in
++++ b/libbitcoin.pc.in
+@@ -9,6 +9,6 @@ URL: http://libbitcoin.dyne.org
+ Version: @PACKAGE_VERSION@
+ Requires: libcurl
+ Cflags: -I${includedir} -std=c++11 @CFLAG_LEVELDB@
+-Libs: -L${libdir} -lbitcoin -lboost_thread -lboost_system -lboost_regex -lboost_filesystem -lpthread -lcurl @LDFLAG_LEVELDB@
++Libs: -L${libdir} -lbitcoin -lboost_thread-mt -lboost_system -lboost_regex -lboost_filesystem -lpthread -lcurl @LDFLAG_LEVELDB@
+ Libs.private: -lcrypto -ldl -lz
+ 

@@ -99,7 +99,7 @@ class BoostGcc48 < Formula
 
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = "g++-4.8"
+    ENV['LD'] = ENV['CXX']
 
     # Adjust the name the libs are installed under to include the path to the
     # Homebrew lib directory so executables will work when installed to a

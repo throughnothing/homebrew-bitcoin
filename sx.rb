@@ -12,6 +12,7 @@ class Sx < Formula
   def install
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
+    ENV['LD'] = ENV['CXX']
 
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
