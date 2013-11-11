@@ -16,8 +16,8 @@ class Obelisk < Formula
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
     ENV['LD'] = ENV['CXX']
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/libbitcoin/include -I/usr/local/opt/zeromq2/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/libbitcoin/lib -L/usr/local/opt/zeromq2/lib"
+    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/libbitcoin/include -I/usr/local/opt/zeromq22/include"
+    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/libbitcoin/lib -L/usr/local/opt/zeromq22/lib"
 
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
