@@ -10,7 +10,7 @@ class Obelisk < Formula
   depends_on 'WyseNynja/bitcoin/boost-gcc48'
   depends_on 'WyseNynja/bitcoin/libbitcoin'
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
-  depends_on 'WyseNynja/bitcoin/zeromq2'
+  depends_on 'homebrew/versions/zeromq22'
 
   def install
     ENV['CC']= "gcc-4.8"
