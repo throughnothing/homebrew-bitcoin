@@ -9,8 +9,6 @@ class Gmp4Gcc48 < Formula
 
   keg_only "Conflicts with gmp in main repository."
 
-  depends_on 'homebrew/versions/gcc48' => :build
-
   option '32-bit'
   option 'skip-check', 'Do not run `make check` to verify libraries'
 
