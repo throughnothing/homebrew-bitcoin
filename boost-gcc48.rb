@@ -33,7 +33,7 @@ class BoostGcc48 < Formula
   depends_on :python => :recommended
   depends_on UniversalPython if build.universal? and build.with? "python"
   depends_on 'homebrew/versions/gcc48' => :build
-  depends_on 'WyseNynja/bitcoin/gmp4-gcc48'
+  depends_on 'homebrew/bitcoin/gmp4-gcc48'
 
   if build.with? 'icu'
     if build.cxx11?
