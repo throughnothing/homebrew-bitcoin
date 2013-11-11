@@ -21,15 +21,6 @@ class BoostGcc48 < Formula
 
   keg_only "This is for libbitcoin."
 
-  # todo: make bottles! building boost takes way too long
-  #bottle do
-  #  cellar :any
-  #  revision 1
-  #  sha1 'bcfae2ddf1a15c295b413c8739b35d3e166493bb' => :mavericks
-  #  sha1 'de1e2f06b32aab7404a7eb61f275c160a92d140c' => :mountain_lion
-  #  sha1 '249be4c524745c0aa23a95c19c3a08003b13dba4' => :lion
-  #end
-
   env :userpaths
 
   option :universal
@@ -42,6 +33,7 @@ class BoostGcc48 < Formula
   depends_on :python => :recommended
   depends_on UniversalPython if build.universal? and build.with? "python"
   depends_on 'homebrew/versions/gcc48' => :build
+  depends_on 'homebrew/bitcoin/gmp4-gcc48'
 
   if build.with? 'icu'
     if build.cxx11?
@@ -100,6 +92,8 @@ class BoostGcc48 < Formula
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
     ENV['LD'] = ENV['CXX']
+    ENV['CPPFLAGS'] = "-I/usr/local/opt/gmp4-gcc48/include"
+    ENV['LDFLAGS'] = "-L/usr/local/opt/gmp4-gcc48/lib"
 
     # Adjust the name the libs are installed under to include the path to the
     # Homebrew lib directory so executables will work when installed to a
