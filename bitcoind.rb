@@ -37,18 +37,18 @@ class Bitcoind < Formula
       system "sh", "autogen.sh"
       system "./configure", "--prefix=#{prefix}"
       system "make"
-      system "strip src/bitcoind"
-      bin.install "src/bitcoind"
     else
       cd "src" do
         system "make", "-f", "makefile.osx",
           "DEPSDIR=#{HOMEBREW_PREFIX}",
           "USE_UPNP=#{(build.include? 'with-upnp') ? '1' : '-'}",
           "USE_IPV6=#{(build.include? 'without-ipv6') ? '-' : '1'}"
-        system "strip bitcoind"
-        bin.install "bitcoind"
       end
     end
+
+    system "strip src/bitcoind"
+    bin.install "src/bitcoind"
+
   end
 
   def caveats; <<-EOS.undent
