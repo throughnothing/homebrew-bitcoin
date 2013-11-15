@@ -14,21 +14,14 @@ end
 
 class BoostGcc48 < Formula
   homepage 'http://www.boost.org'
-  url 'http://downloads.sourceforge.net/project/boost/boost/1.54.0/boost_1_54_0.tar.bz2'
-  sha1 '230782c7219882d0fab5f1effbe86edb85238bf4'
+  url 'http://downloads.sourceforge.net/project/boost/boost/1.55.0/boost_1_55_0.tar.bz2'
+  sha1 'cef9a0cc7084b1d639e06cd3bc34e4251524c840'
 
   head 'http://svn.boost.org/svn/boost/trunk'
 
   keg_only "This is for libbitcoin."
 
   # todo: make bottles! building boost takes way too long
-  #bottle do
-  #  cellar :any
-  #  revision 1
-  #  sha1 'bcfae2ddf1a15c295b413c8739b35d3e166493bb' => :mavericks
-  #  sha1 'de1e2f06b32aab7404a7eb61f275c160a92d140c' => :mountain_lion
-  #  sha1 '249be4c524745c0aa23a95c19c3a08003b13dba4' => :lion
-  #end
 
   env :userpaths
 
@@ -66,16 +59,6 @@ class BoostGcc48 < Formula
     cause "Dropped arguments to functions when linking with boost"
   end
 
-  def patches
-    # upstream backported patches for 1.54.0: http://www.boost.org/patches
-    [
-      'http://www.boost.org/patches/1_54_0/001-coroutine.patch',
-      'http://www.boost.org/patches/1_54_0/002-date-time.patch',
-      'http://www.boost.org/patches/1_54_0/003-log.patch',
-      'http://www.boost.org/patches/1_54_0/004-thread.patch'
-    ] unless build.head?
-  end
-
   def install
     # https://svn.boost.org/trac/boost/ticket/8841
     if build.with? 'mpi' and not build.without? 'single'
@@ -95,7 +78,7 @@ class BoostGcc48 < Formula
     end
 
     ENV.universal_binary if build.universal?
-    ENV.cxx11 if build.cxx11?  # todo: i'm not sure what to do here
+    ENV.cxx11 if build.cxx11?
 
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
