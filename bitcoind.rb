@@ -12,6 +12,7 @@ class Bitcoind < Formula
 
     depends_on 'automake'
     depends_on 'pkg-config'
+    depends_on 'protobuf'
   end
 
   depends_on 'berkeley-db4'
@@ -30,9 +31,6 @@ class Bitcoind < Formula
   end
 
   def install
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/openssl/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/openssl/lib"
-
     if build.devel?
       system "sh", "autogen.sh"
       system "./configure", "--prefix=#{prefix}"
