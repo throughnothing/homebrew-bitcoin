@@ -3,6 +3,7 @@ require 'formula'
 class Libbitcoin < Formula
   homepage 'https://github.com/spesmilo/libbitcoin'
   url 'https://github.com/spesmilo/libbitcoin.git', :tag => 'v1.4'
+  head 'https://github.com/spesmilo/libbitcoin.git', :branch => 'master'
 
   depends_on 'automake' => :build
   depends_on 'curl'
@@ -20,8 +21,6 @@ class Libbitcoin < Formula
     ENV['CC']= "gcc-4.8"
     ENV['CXX'] = "g++-4.8"
     ENV['LD'] = ENV['CXX']
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/curl/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/openssl/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/curl/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/openssl/lib"
 
     system "autoreconf", "-i"
     system "./configure", "--enable-leveldb",
