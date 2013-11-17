@@ -6,7 +6,7 @@ class Bitcoind < Formula
   url 'https://github.com/bitcoin/bitcoin.git', :tag => 'v0.8.5'
   version '0.8.5'
 
-  devel do
+  head do
     url 'https://github.com/bitcoin/bitcoin.git', :branch => 'master'
     version 'master'
 
@@ -24,14 +24,16 @@ class Bitcoind < Formula
   option 'without-ipv6', 'Compile without IPv6 support'
 
   def patches
-    unless build.devel?
+    unless build.head?
       # fix include and lib paths for berkeley-db4 and openssl
       DATA
     end
   end
 
   def install
-    if build.devel?
+    raise 'Bitcoind currently requires --HEAD on Mavericks' if MacOS.version == :mavericks and not build.head?
+
+    if build.head?
       system "sh", "autogen.sh"
       system "./configure", "--prefix=#{prefix}"
       system "make"
