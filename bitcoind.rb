@@ -76,6 +76,8 @@ class Bitcoind < Formula
 
     echo -e "rpcuser=bitcoinrpc\\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > ~/Library/Application\\ Support/Bitcoin/bitcoin.conf
     chmod 600 ~/Library/Application\\ Support/Bitcoin/bitcoin.conf
+
+    Use `bitcoind stop` to stop bitcoind if necessary! `brew services stop bitcoind` does not work!
     EOS
   end
 end
