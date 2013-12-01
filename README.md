@@ -23,9 +23,11 @@ This is @luke-jr's branch of things upcoming in the main bitcoind.  It currently
 
 ## libbitcoin / Obelisk / sx
 
-These formula require GCC 4.8 which is newer than the compiler that comes with OS X.  Because of this, building these packages takes a while and the formula are a bit more complex.  Compiling like this is not supported by the brew developers, but I don't see any other way.
+These formula require GCC 4.8 which is newer than the compiler that comes with OS X.  Because of this, building these packages takes a while and the formula are a bit more complex.  Hard coding other versions of compilers into a formula like this is not supported by the brew developers, but I don't see any other way.  I'm also not very happy with the CPPFLAGS and LDFLAGS stuff, but it seems to be working.
 
-Currently, libbitcoin (and probably obelisk) compile in Mavericks, although both seem to be having some trouble with their libraries.  I'm debugging now and expect to have sx working soon.  Please contribute anything you know to the open issues or open a new one!
+Currently, libbitcoin (and probably obelisk) compile in Mavericks, although both seem to be having some trouble with their libraries.  I'm debugging now and expect to have sx working soon.
+
+If you have anything that could help make these formula better, please contribute anything you know to the open issues or open a new issue!
 
 ## Vanitygen
 
