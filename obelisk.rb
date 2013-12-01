@@ -6,22 +6,19 @@ class Obelisk < Formula
 
   depends_on 'automake' => :build
   depends_on 'homebrew/versions/gcc48' => :build
-  depends_on 'libconfig' => :build
+  depends_on 'WyseNynja/bitcoin/libconfig-gcc48' => :build  # todo: does this need gcc48?
   depends_on 'WyseNynja/bitcoin/boost-gcc48'
   depends_on 'WyseNynja/bitcoin/libbitcoin'
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
   depends_on 'homebrew/versions/zeromq22'
 
   def install
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/leveldb-gcc48/include -I/usr/local/opt/libbitcoin/include -I/usr/local/opt/zeromq22/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/leveldb-gcc48/lib -L/usr/local/opt/libbitcoin/lib -L/usr/local/opt/zeromq22/lib"
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
-    system "make"
+    #system "make"
     system "make", "install"
   end
 

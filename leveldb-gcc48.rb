@@ -5,15 +5,14 @@ class LeveldbGcc48 < Formula
   url 'https://leveldb.googlecode.com/files/leveldb-1.14.0.tar.gz'
   sha1 '641d54df4aaf7ee569ae003cfbdb888ebdee0d7f'
 
-  keg_only "This is for libbitcoin."
+  keg_only "Conflicts with leveldb in main repository."
 
   depends_on 'homebrew/versions/gcc48' => :build
   depends_on 'snappy' => :build
 
   def install
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     system "make"
     system "make leveldbutil"

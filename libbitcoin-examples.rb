@@ -3,10 +3,13 @@ require 'formula'
 class LibbitcoinExamples < Formula
   homepage 'https://github.com/spesmilo/libbitcoin'
   url 'https://github.com/spesmilo/libbitcoin.git', :tag => 'v1.4'
+  head 'https://github.com/spesmilo/libbitcoin.git', :branch => 'master'
 
-  depends_on 'WyseNynja/bitcoin/boost-gcc48'
-  depends_on 'WyseNynja/bitcoin/libbitcoin'
+  depends_on 'pkg-config' => :build
   depends_on 'watch'
+  depends_on 'WyseNynja/bitcoin/boost-gcc48'
+  depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
+  depends_on 'WyseNynja/bitcoin/libbitcoin'
 
   def patches
     # lboost_thread is named differently on osx
@@ -14,11 +17,11 @@ class LibbitcoinExamples < Formula
   end
 
   def install
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
-    ENV['CPPFLAGS'] = "-I/usr/local/opt/libbitcoin/include -I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/leveldb-gcc48/include"
-    ENV['LDFLAGS'] = "-L/usr/local/opt/libbitcoin/lib -L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/leveldb-gcc48/lib"
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+
+    # this is set in libbitcoin.pc.in
+    #ENV.cxx11
 
     cd "examples" do
       system "make"

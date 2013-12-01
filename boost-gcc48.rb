@@ -19,7 +19,7 @@ class BoostGcc48 < Formula
 
   head 'http://svn.boost.org/svn/boost/trunk'
 
-  keg_only "This is for libbitcoin."
+  keg_only "Conflicts with boost in main repository."
 
   # todo: make bottles! building boost takes way too long
 
@@ -80,9 +80,8 @@ class BoostGcc48 < Formula
     ENV.universal_binary if build.universal?
     ENV.cxx11 if build.cxx11?
 
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     # Adjust the name the libs are installed under to include the path to the
     # Homebrew lib directory so executables will work when installed to a

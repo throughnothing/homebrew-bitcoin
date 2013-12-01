@@ -5,12 +5,16 @@ class Libbitcoin < Formula
   url 'https://github.com/spesmilo/libbitcoin.git', :tag => 'v1.4'
   head 'https://github.com/spesmilo/libbitcoin.git', :branch => 'master'
 
-  depends_on 'automake' => :build
+  depends_on :autoconf
+  depends_on :automake
+  depends_on 'pkg-config' => :build
   depends_on 'curl'
   depends_on 'homebrew/versions/gcc48' => :build
+  depends_on 'libtool' => :build
   depends_on 'openssl'
-  depends_on 'WyseNynja/bitcoin/boost-gcc48'
+  depends_on 'WyseNynja/bitcoin/boost-gcc48'  # => 'c++11'  # todo: not sure about this
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
+  #depends_on 'WyseNynja/bitcoin/protobuf-gcc48'
 
   def patches
     # lboost_thread is named differently on osx
@@ -18,9 +22,32 @@ class Libbitcoin < Formula
   end
 
   def install
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
+    # we depend on gcc48 for build, but the PATH is in the wrong order
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+
+    # I thought depends_on boost-gcc48 would be enough, but I guess not...
+    boostgcc48 = Formula.factory('WyseNynja/bitcoin/boost-gcc48')
+    ENV.append 'CPPFLAGS', "-I#{boostgcc48.include}"
+    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib}"
+
+    # I thought depends_on curl would be enough, but I guess not...
+    curl = Formula.factory('curl')
+    ENV.append 'CPPFLAGS', "-I#{curl.include}"
+    ENV.append 'LDFLAGS', "-L#{curl.lib}"
+
+    # I thought depends_on openssl would be enough, but I guess not...
+    openssl = Formula.factory('openssl')
+    ENV.append 'CPPFLAGS', "-I#{openssl.include}"
+    ENV.append 'LDFLAGS', "-L#{openssl.lib}"
+
+    # I thought depends_on leveldb would be enough, but I guess not...
+    leveldbgcc48 = Formula.factory('WyseNynja/bitcoin/leveldb-gcc48')
+    ENV.append 'CPPFLAGS', "-I#{leveldbgcc48.include}"
+    ENV.append 'LDFLAGS', "-L#{leveldbgcc48.lib}"
+
+    # this is set in libbitcoin.pc.in
+    ENV.cxx11
 
     system "autoreconf", "-i"
     system "./configure", "--enable-leveldb",
@@ -36,6 +63,7 @@ class Libbitcoin < Formula
     system "false"
   end
 end
+
 __END__
 diff --git a/libbitcoin.pc.in b/libbitcoin.pc.in
 index 81880f3..aa6d18e 100644
@@ -46,6 +74,6 @@ index 81880f3..aa6d18e 100644
  Requires: libcurl
  Cflags: -I${includedir} -std=c++11 @CFLAG_LEVELDB@
 -Libs: -L${libdir} -lbitcoin -lboost_thread -lboost_system -lboost_regex -lboost_filesystem -lpthread -lcurl @LDFLAG_LEVELDB@
-+Libs: -L${libdir} -lbitcoin -lboost_thread-mt -lboost_system -lboost_regex -lboost_filesystem -lpthread -lcurl @LDFLAG_LEVELDB@
++Libs: -L${libdir} -lbitcoin -lboost_thread-mt -lboost_system-mt -lboost_regex-mt -lboost_filesystem-mt -lpthread -lcurl -lleveldb @LDFLAG_LEVELDB@
  Libs.private: -lcrypto -ldl -lz
  

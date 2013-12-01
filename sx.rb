@@ -10,9 +10,8 @@ class Sx < Formula
   depends_on 'WyseNynja/bitcoin/obelisk'
 
   def install
-    ENV['CC']= "gcc-4.8"
-    ENV['CXX'] = "g++-4.8"
-    ENV['LD'] = ENV['CXX']
+    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
