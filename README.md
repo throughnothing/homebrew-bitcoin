@@ -13,7 +13,7 @@ And run `brew update` and `brew doctor` often!
 
 Armory is having issues on OS X.  It seems to hang and crash after a few minutes of use.  Mavericks seems even less stable.
 
-## Bitcoind
+## bitcoind
 
 This formula currently has trouble on Mavericks.  You will have to install with `--HEAD` until the next bitcoind release (>0.8.5).
 
@@ -21,7 +21,7 @@ This formula currently has trouble on Mavericks.  You will have to install with 
 
 This is @luke-jr's branch of things upcoming in the main bitcoind.  It currently does not work on Mavericks.  Stay tuned!
 
-## Libbitcoin / Obelisk / sx
+## libbitcoin / Obelisk / sx
 
 These formulas require GCC 4.8, a newer than the compiler than comes with OS X.  Because of this, building these packages takes a while.  Compiling like this is not supported by the brew developers, but I don't see any other way.
 
