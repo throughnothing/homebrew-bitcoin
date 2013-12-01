@@ -29,6 +29,8 @@ Currently, libbitcoin (and probably obelisk) compile in Mavericks, although both
 
 If you have anything that could help make these formula better, please contribute anything you know to the open issues or open a new issue!
 
+Also, libbitcoin.pc is likely not right.  If you know what should be changed there, let me know!
+
 ## Vanitygen
 
 I am pretty sure this works, but I don't have a system to test the GPU or pooled mining.
