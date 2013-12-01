@@ -11,17 +11,11 @@ class LibbitcoinExamples < Formula
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
   depends_on 'WyseNynja/bitcoin/libbitcoin'
 
-  def patches
-    # lboost_thread is named differently on osx
-    DATA
-  end
-
   def install
     ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
     ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
-    # this is set in libbitcoin.pc.in
-    #ENV.cxx11
+    #ENV.cxx11  # this is set in libbitcoin.pc.in
 
     cd "examples" do
       system "make"
@@ -53,16 +47,3 @@ class LibbitcoinExamples < Formula
     system "false"
   end
 end
-__END__
-diff --git a/examples/Makefile b/examples/Makefile
-index aa7fa9d..b2a6f68 100644
---- a/examples/Makefile
-+++ b/examples/Makefile
-@@ -1,5 +1,5 @@
--CXXFLAGS=$(shell pkg-config --cflags libbitcoin) -ggdb
--LIBS=$(shell pkg-config --libs libbitcoin)
-+CXXFLAGS=$(shell pkg-config --cflags libbitcoin) -ggdb -I/usr/local/opt/boost-gcc48/include -I/usr/local/opt/curl/include -I/usr/local/opt/leveldb-gcc48/include
-+LIBS=$(shell pkg-config --libs libbitcoin) -L/usr/local/opt/boost-gcc48/lib -L/usr/local/opt/curl/lib -L/usr/local/opt/leveldb-gcc48/lib
-
- default: all
- 
