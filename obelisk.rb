@@ -24,22 +24,22 @@ class Obelisk < Formula
     # I thought depends_on libconfig-gcc48 would be enough, but I guess not...
     libconfiggcc48 = Formula.factory('WyseNynja/bitcoin/libconfig-gcc48')
     ENV.append 'CPPFLAGS', "-I#{libconfiggcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{libconfiggcc48.lib} -lconfig++"
+    ENV.append 'LDFLAGS', "-L#{libconfiggcc48.lib}"
 
     # I thought depends_on boost-gcc48 would be enough, but I guess not...
     boostgcc48 = Formula.factory('WyseNynja/bitcoin/boost-gcc48')
     ENV.append 'CPPFLAGS', "-I#{boostgcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib} -lboost"
+    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib}"
 
     # I thought depends_on leveldb-gcc48 would be enough, but I guess not...
     leveldbgcc48 = Formula.factory('WyseNynja/bitcoin/leveldb-gcc48')
     ENV.append 'CPPFLAGS', "-I#{leveldbgcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{leveldbgcc48.lib} -lleveldb"
+    ENV.append 'LDFLAGS', "-L#{leveldbgcc48.lib}"
 
     # I thought depends_on zermoq-gcc48 would be enough, but I guess not...
     zeromq2gcc48 = Formula.factory('WyseNynja/bitcoin/zeromq2-gcc48')
     ENV.append 'CPPFLAGS', "-I#{zeromq2gcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{zeromq2gcc48.lib} -lzeromq"
+    ENV.append 'LDFLAGS', "-L#{zeromq2gcc48.lib}"
 
     # this is set in libbitcoin.pc.in
     ENV.cxx11

@@ -16,6 +16,8 @@ class Sx < Formula
     ENV['CC'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
     ENV['CXX'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
+    # todo: very likely need to include some things here
+
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
     system "make"
