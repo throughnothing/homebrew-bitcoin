@@ -1,6 +1,6 @@
 require 'formula'
 
-class Zeromq22Gcc48 < Formula
+class Zeromq2Gcc48 < Formula
   homepage 'http://www.zeromq.org/'
   url 'http://download.zeromq.org/zeromq-2.2.0.tar.gz'
   sha1 'e4bc024c33d3e62f658640625e061ce4e8bd1ff1'
