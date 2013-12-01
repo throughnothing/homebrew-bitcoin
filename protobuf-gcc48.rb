@@ -17,8 +17,9 @@ class ProtobufGcc48 < Formula
   end
 
   def install
-    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
-    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+    # we depend on gcc48 for build, but the PATH is in the wrong order
+    ENV['CC'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     # Don't build in debug mode. See:
     # https://github.com/mxcl/homebrew/issues/9279

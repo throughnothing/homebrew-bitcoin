@@ -5,16 +5,17 @@ class Libbitcoin < Formula
   url 'https://github.com/spesmilo/libbitcoin.git', :tag => 'v1.4'
   head 'https://github.com/spesmilo/libbitcoin.git', :branch => 'master'
 
-  depends_on :autoconf
-  depends_on :automake
-  depends_on 'pkg-config' => :build
-  depends_on 'curl'
+  depends_on 'autoconf' => :build
+  depends_on 'automake' => :build
   depends_on 'homebrew/versions/gcc48' => :build
   depends_on 'libtool' => :build
-  depends_on 'openssl'
+  depends_on 'pkg-config' => :build
+
+  depends_on 'curl'  # todo: does this need gcc48?
+  depends_on 'openssl'  # todo: does this need gcc48?
   depends_on 'WyseNynja/bitcoin/boost-gcc48'  # => 'c++11'  # todo: not sure about this
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
-  #depends_on 'WyseNynja/bitcoin/protobuf-gcc48'
+  #depends_on 'WyseNynja/bitcoin/protobuf-gcc48'  # mentioned in install docs, but seems unnecessary
 
   def patches
     # lboost_thread is named differently on osx
@@ -23,25 +24,25 @@ class Libbitcoin < Formula
 
   def install
     # we depend on gcc48 for build, but the PATH is in the wrong order
-    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
-    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+    ENV['CC'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     # I thought depends_on boost-gcc48 would be enough, but I guess not...
     boostgcc48 = Formula.factory('WyseNynja/bitcoin/boost-gcc48')
     ENV.append 'CPPFLAGS', "-I#{boostgcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib}"
+    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib} -lboost_thread-mt -lboost_system-mt -lboost_regex-mt -lboost_filesystem-mt"
 
     # I thought depends_on curl would be enough, but I guess not...
     curl = Formula.factory('curl')
     ENV.append 'CPPFLAGS', "-I#{curl.include}"
-    ENV.append 'LDFLAGS', "-L#{curl.lib}"
+    ENV.append 'LDFLAGS', "-L#{curl.lib} -lcurl"
 
     # I thought depends_on openssl would be enough, but I guess not...
     openssl = Formula.factory('openssl')
     ENV.append 'CPPFLAGS', "-I#{openssl.include}"
     ENV.append 'LDFLAGS', "-L#{openssl.lib}"
 
-    # I thought depends_on leveldb would be enough, but I guess not...
+    # I thought depends_on leveldb-gcc48 would be enough, but I guess not...
     leveldbgcc48 = Formula.factory('WyseNynja/bitcoin/leveldb-gcc48')
     ENV.append 'CPPFLAGS', "-I#{leveldbgcc48.include}"
     ENV.append 'LDFLAGS', "-L#{leveldbgcc48.lib}"
@@ -75,6 +76,6 @@ index 81880f3..aa6d18e 100644
 -Cflags: -I${includedir} -std=c++11 @CFLAG_LEVELDB@
 +Cflags: -I${includedir} @CPPFLAGS@ -std=c++11 @CFLAG_LEVELDB@
 -Libs: -L${libdir} -lbitcoin -lboost_thread -lboost_system -lboost_regex -lboost_filesystem -lpthread -lcurl @LDFLAG_LEVELDB@
-+Libs: -L${libdir} @LDFLAGS@ -lbitcoin -lboost_thread-mt -lboost_system-mt -lboost_regex-mt -lboost_filesystem-mt -lpthread -lcurl @LDFLAG_LEVELDB@
++Libs: -L${libdir} @LDFLAGS@ -lbitcoin -lpthread @LDFLAG_LEVELDB@
  Libs.private: -lcrypto -ldl -lz
  

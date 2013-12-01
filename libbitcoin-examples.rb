@@ -6,14 +6,16 @@ class LibbitcoinExamples < Formula
   head 'https://github.com/spesmilo/libbitcoin.git', :branch => 'master'
 
   depends_on 'pkg-config' => :build
+
   depends_on 'watch'
   depends_on 'WyseNynja/bitcoin/boost-gcc48'
   depends_on 'WyseNynja/bitcoin/leveldb-gcc48'
   depends_on 'WyseNynja/bitcoin/libbitcoin'
 
   def install
-    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
-    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+    # we depend on gcc48 for build, but the PATH is in the wrong order
+    ENV['CC'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     #ENV.cxx11  # this is set in libbitcoin.pc.in
 

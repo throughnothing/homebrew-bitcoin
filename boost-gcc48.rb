@@ -60,6 +60,10 @@ class BoostGcc48 < Formula
   end
 
   def install
+    # we depend on gcc48 for build, but the PATH is in the wrong order
+    ENV['CC'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
+    ENV['CXX'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
+
     # https://svn.boost.org/trac/boost/ticket/8841
     if build.with? 'mpi' and not build.without? 'single'
       raise <<-EOS.undent
@@ -79,9 +83,6 @@ class BoostGcc48 < Formula
 
     ENV.universal_binary if build.universal?
     ENV.cxx11 if build.cxx11?
-
-    ENV['CC'] = ENV['LD'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/gcc-4.8"
-    ENV['CXX'] = "#{HOMEBREW_PREFIX}/opt/gcc48/bin/g++-4.8"
 
     # Adjust the name the libs are installed under to include the path to the
     # Homebrew lib directory so executables will work when installed to a
