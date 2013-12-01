@@ -30,12 +30,12 @@ class Libbitcoin < Formula
     # I thought depends_on boost-gcc48 would be enough, but I guess not...
     boostgcc48 = Formula.factory('WyseNynja/bitcoin/boost-gcc48')
     ENV.append 'CPPFLAGS', "-I#{boostgcc48.include}"
-    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib} -lboost_thread-mt -lboost_system-mt -lboost_regex-mt -lboost_filesystem-mt"
+    ENV.append 'LDFLAGS', "-L#{boostgcc48.lib}"
 
     # I thought depends_on curl would be enough, but I guess not...
     curl = Formula.factory('curl')
     ENV.append 'CPPFLAGS', "-I#{curl.include}"
-    ENV.append 'LDFLAGS', "-L#{curl.lib} -lcurl"
+    ENV.append 'LDFLAGS', "-L#{curl.lib}"
 
     # I thought depends_on openssl would be enough, but I guess not...
     openssl = Formula.factory('openssl')
