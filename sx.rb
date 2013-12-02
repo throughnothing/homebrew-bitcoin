@@ -41,7 +41,7 @@ class Sx < Formula
     ENV.append 'CPPFLAGS', "-I#{obelisk.include}"
     ENV.append 'LDFLAGS', "-L#{obelisk.lib}"
 
-    ENV.append 'libbitcoin_LIBS', "-lbitcoin -lpthread -lleveldb -lcurl -lboost_thread-mt -lboost_filesystem -lboost_system -lobelisk -lconfig++ -lzmq"
+    ENV.append 'libbitcoin_LIBS', "-lbitcoin -lpthread -lleveldb -lcurl -lboost_thread-mt -lboost_regex -lboost_filesystem -lboost_system -lobelisk -lconfig++ -lzmq"
 
     # this is set in libbitcoin.pc.in
     ENV.cxx11

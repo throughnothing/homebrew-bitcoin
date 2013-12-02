@@ -41,6 +41,13 @@ class Obelisk < Formula
     ENV.append 'CPPFLAGS', "-I#{zeromq2gcc48.include}"
     ENV.append 'LDFLAGS', "-L#{zeromq2gcc48.lib}"
 
+    # I thought depends_on zermoq-gcc48 would be enough, but I guess not...
+    libbitcoin = Formula.factory('WyseNynja/bitcoin/libbitcoin')
+    ENV.append 'CPPFLAGS', "-I#{libbitcoin.include}"
+    ENV.append 'LDFLAGS', "-L#{libbitcoin.lib}"
+
+    ENV.append 'libbitcoin_LIBS', "-lbitcoin -lpthread -lleveldb -lcurl -lboost_thread-mt -lboost_regex -lboost_filesystem -lboost_system -lobelisk -lconfig++ -lzmq"
+
     # this is set in libbitcoin.pc.in
     ENV.cxx11
 
